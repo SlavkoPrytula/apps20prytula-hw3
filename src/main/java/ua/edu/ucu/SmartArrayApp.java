@@ -4,6 +4,7 @@ import java.util.Arrays;
 import ua.edu.ucu.functions.MyComparator;
 import ua.edu.ucu.functions.MyFunction;
 import ua.edu.ucu.functions.MyPredicate;
+import ua.edu.ucu.smartarr.*;
 
 public class SmartArrayApp {
 
@@ -34,9 +35,9 @@ public class SmartArrayApp {
         // Input: [-1, 2, 0, 1, -5, 3]
         SmartArray sa = new BaseArray(integers);
 
-        sa = new FilterDecorator(sa, pr); // Result: [2, 1, 3];
-        sa = new SortDecorator(sa, cmp); // Result: [1, 2, 3]
-        sa = new MapDecorator(sa, func); // Result: [2, 4, 6]
+//        sa = new FilterDecorator(sa, pr); // Result: [2, 1, 3];
+//        sa = new SortDecorator(sa, cmp); // Result: [1, 2, 3]
+//        sa = new MapDecorator(sa, func); // Result: [2, 4, 6]                 // wtf, dont forget to uncomment
 
         // Alternative
 //        sa = new MapDecorator(
