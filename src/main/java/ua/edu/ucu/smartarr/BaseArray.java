@@ -1,5 +1,8 @@
 package ua.edu.ucu.smartarr;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 // Base array for decorators
 public class BaseArray implements SmartArray{
     static final int INITIAL_CAPACITY = 10;
@@ -15,16 +18,16 @@ public class BaseArray implements SmartArray{
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        return Arrays.copyOf(array, size());
     }
 
     @Override
     public String operationDescription() {
-        return null; // ??
+        return "Base Array"; // ??
     }
 
     @Override
     public int size() {
-        return INITIAL_CAPACITY;
+        return array.length;
     }
 }
