@@ -30,7 +30,6 @@ public class FilterDecorator extends SmartArrayDecorator
             }
         }
         filterSmartArray = Arrays.copyOf(tempArray, index);
-        smartArray = new BaseArray(filterSmartArray);
         return true;
     }
 

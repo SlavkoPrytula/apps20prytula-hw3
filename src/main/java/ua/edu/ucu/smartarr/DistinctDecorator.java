@@ -39,7 +39,6 @@ public class DistinctDecorator extends SmartArrayDecorator
             }
         }
         distinctSmartArray = Arrays.copyOf(tempArray, index); // cut
-        smartArray = new BaseArray(distinctSmartArray);
     }
 
     @Override
