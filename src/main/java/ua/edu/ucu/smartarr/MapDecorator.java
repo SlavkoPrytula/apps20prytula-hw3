@@ -7,15 +7,21 @@ import java.util.Arrays;
 // Map every element to another object using MyFunction
 public class MapDecorator extends SmartArrayDecorator implements MyFunction {
     public Object[] mapSmartArray;
+    public MyFunction func;
 
-    public MapDecorator(SmartArray smartArray) {
+    public MapDecorator(SmartArray smartArray, MyFunction func) {
         super(smartArray);
-        this.mapSmartArray = smartArray.toArray();
+        this.func = func;
+        this.mapSmartArray = Arrays.copyOf(smartArray.toArray(), smartArray.size());
+        apply(mapSmartArray);
     }
 
     @Override
     public Object apply(Object t) {
-        return null;
+        for (int i = 0; i < size(); i++) {
+            mapSmartArray[i] = func.apply(mapSmartArray[i]);
+        }
+        return t;
     }
 
     @Override

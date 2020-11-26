@@ -7,15 +7,39 @@ import java.util.Arrays;
 // Tests every element and removes it if it doesn't satisfy MyPredicate
 public class FilterDecorator extends SmartArrayDecorator implements MyPredicate {
     public Object[] filterSmartArray;
+    public MyPredicate predicate;
 
-    public FilterDecorator(SmartArray smartArray) {
+    public FilterDecorator(SmartArray smartArray, MyPredicate predicate) {
         super(smartArray);
-        this.filterSmartArray = smartArray.toArray();
+        this.predicate = predicate;
+        this.filterSmartArray = Arrays.copyOf(smartArray.toArray(), smartArray.size());
+        test(filterSmartArray);
     }
+
+//    public void remove() {
+//        Object[] tempArray = new Object[size()];
+//        int index = 0;
+//        for (int i = 0; i < size(); i++) {
+//            if (test(filterSmartArray[i])) {
+//                tempArray[index] = filterSmartArray[i];
+//                index++;
+//            }
+//        }
+//        filterSmartArray = tempArray;
+//    }
 
     @Override
     public boolean test(Object t) {
-        return false;
+        Object[] tempArray = new Object[size()];
+        int index = 0;
+        for (int i = 0; i < size(); i++) {
+            if (predicate.test(filterSmartArray[i])) {
+                tempArray[index] = filterSmartArray[i];
+                index++;
+            }
+        }
+        filterSmartArray = Arrays.copyOf(tempArray, index);
+        return true;
     }
 
     @Override

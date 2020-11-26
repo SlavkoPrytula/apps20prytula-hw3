@@ -7,10 +7,13 @@ import java.util.Arrays;
 // Remove duplicates from SmartArray. Use method equals() to compare objects
 public class DistinctDecorator extends SmartArrayDecorator implements MyComparator {
     public Object[] distinctSmartArray;
+    public MyComparator cmp;
 
-    public DistinctDecorator(SmartArray smartArray) {
+    public DistinctDecorator(SmartArray smartArray, MyComparator cmp) {
         super(smartArray);
-        this.distinctSmartArray = smartArray.toArray();
+        this.distinctSmartArray = Arrays.copyOf(smartArray.toArray(), smartArray.size());
+        this.cmp = cmp;
+        remove();
     }
 
     public void remove() {
@@ -27,7 +30,8 @@ public class DistinctDecorator extends SmartArrayDecorator implements MyComparat
                 index++;
             }
         }
-        distinctSmartArray = tempArray;
+        tempArray[index - 1] = distinctSmartArray[size() - 1];
+        distinctSmartArray = Arrays.copyOf(tempArray, index); // cut
     }
 
     @Override
