@@ -6,6 +6,8 @@ import ua.edu.ucu.functions.MyFunction;
 import ua.edu.ucu.functions.MyPredicate;
 import ua.edu.ucu.smartarr.*;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 /**
