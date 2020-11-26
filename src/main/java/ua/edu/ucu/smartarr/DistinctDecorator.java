@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class DistinctDecorator extends SmartArrayDecorator
         implements MyComparator {
 
-    public Object[] distinctSmartArray;
+    private Object[] distinctSmartArray;
     public MyComparator cmp;
 
     public DistinctDecorator(SmartArray smartArray, MyComparator cmp) {

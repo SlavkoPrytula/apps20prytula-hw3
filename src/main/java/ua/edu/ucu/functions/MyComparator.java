@@ -11,7 +11,7 @@ import java.util.Comparator;
  *
  * @author Andrii_Rodionov
  */
-public interface MyComparator extends Comparator<Object>{
+public interface MyComparator extends Comparator<Object> {
 
     @Override
     int compare(Object o, Object a);

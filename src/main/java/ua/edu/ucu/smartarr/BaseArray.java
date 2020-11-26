@@ -3,13 +3,8 @@ package ua.edu.ucu.smartarr;
 import java.util.Arrays;
 
 // Base array for decorators
-public class BaseArray implements SmartArray{
-    static final int INITIAL_CAPACITY = 10;
-    public Object[] array;
-
-    public BaseArray() {
-        this.array = new Object[INITIAL_CAPACITY];
-    }
+public class BaseArray implements SmartArray {
+    private final Object[] array;
 
     public BaseArray(Object[] array) {
         this.array = array;

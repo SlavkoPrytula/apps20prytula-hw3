@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class MapDecorator extends SmartArrayDecorator
         implements MyFunction {
 
-    public Object[] mapSmartArray;
+    private final Object[] mapSmartArray;
     public MyFunction func;
 
     public MapDecorator(SmartArray smartArray, MyFunction func) {
@@ -34,8 +34,8 @@ public class MapDecorator extends SmartArrayDecorator
 
     @Override
     public String operationDescription() {
-        return "Maps each element of an array to " +
-                "a new one applying certain modifications";
+        return "Maps each element of an array to "
+                + "a new one applying certain modifications";
     }
 
     @Override

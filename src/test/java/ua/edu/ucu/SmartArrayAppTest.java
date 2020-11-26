@@ -211,31 +211,6 @@ public class SmartArrayAppTest {
     // -------------------------------------------------------------
 
     @Test
-    public void testEmptyArray() {
-        BaseArray integers = new BaseArray();
-        integers.array[0] = 0;
-        integers.array[1] = 11;
-        integers.array[3] = -1;
-        integers.array[2] = -51;
-        integers.array[4] = 0;
-
-        SmartArray ints = integers;
-
-        MyComparator cmp = new MyComparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                return ((Integer) o1) - ((Integer) o2);
-            }
-        };
-
-        ints = new SortDecorator(ints, cmp);
-
-        Object[] expectedStr = new BaseArray(new Integer[]{-51, -1, 0, 0, 11}).toArray();
-        Object[] resultArr = ints.toArray();
-        assertArrayEquals(expectedStr, resultArr);
-    }
-
-    @Test
     public void testStudentData() {
         Student students = new Student("Ivar", "Grimstad", 3.9, 2);
 
