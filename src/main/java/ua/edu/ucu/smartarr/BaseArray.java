@@ -1,6 +1,5 @@
 package ua.edu.ucu.smartarr;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 // Base array for decorators
@@ -23,7 +22,7 @@ public class BaseArray implements SmartArray{
 
     @Override
     public String operationDescription() {
-        return "Base Array"; // ??
+        return "Base Array: Representation of and Object[] class";
     }
 
     @Override

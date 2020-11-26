@@ -5,14 +5,17 @@ import ua.edu.ucu.functions.MyFunction;
 import java.util.Arrays;
 
 // Map every element to another object using MyFunction
-public class MapDecorator extends SmartArrayDecorator implements MyFunction {
+public class MapDecorator extends SmartArrayDecorator
+        implements MyFunction {
+
     public Object[] mapSmartArray;
     public MyFunction func;
 
     public MapDecorator(SmartArray smartArray, MyFunction func) {
         super(smartArray);
         this.func = func;
-        this.mapSmartArray = Arrays.copyOf(smartArray.toArray(), smartArray.size());
+        this.mapSmartArray = Arrays.copyOf(smartArray.toArray(),
+                smartArray.size());
         apply(mapSmartArray);
     }
 
@@ -31,7 +34,8 @@ public class MapDecorator extends SmartArrayDecorator implements MyFunction {
 
     @Override
     public String operationDescription() {
-        return "Maps each element of an array to a new type"; // ??
+        return "Maps each element of an array to " +
+                "a new one applying certain modifications";
     }
 
     @Override

@@ -10,7 +10,8 @@ public class SmartArrayApp {
 
     public static Integer[]
             filterPositiveIntegersSortAndMultiplyBy2(Integer[] integers) {
-                
+        SmartArray sa = new BaseArray(integers);
+
         MyPredicate pr = new MyPredicate() {
             @Override
             public boolean test(Object t) {
@@ -32,63 +33,66 @@ public class SmartArrayApp {
             }
         };
 
-        // Input: [-1, 2, 0, 1, -5, 3]
-        SmartArray sa = new BaseArray(integers);
 
-        sa = new FilterDecorator(sa, pr); // Result: [2, 1, 3];
-        sa = new SortDecorator(sa, cmp); // Result: [1, 2, 3]
-        sa = new MapDecorator(sa, func); // Result: [2, 4, 6]                 // wtf, dont forget to uncomment
+        sa = new MapDecorator(
+                new SortDecorator(
+                        new FilterDecorator(sa, pr),
+                        cmp),
+                func);
 
-        // Alternative
-//        sa = new MapDecorator(
-//                    new SortDecorator(
-//                        new FilterDecorator(sa, pr),
-//                    cmp),
-//                func);
         Object[] result = sa.toArray();
         return Arrays.copyOf(result, result.length, Integer[].class);
     }
 
     public static String[]
-            findDistinctStudentNamesFrom2ndYearWithGPAgt4AndOrderedBySurname(Student[] students) {
+            findDistinctStudentNamesFrom2ndYearWithGPAgt4AndOrderedBySurname(
+                    Student[] students) {
+        SmartArray sd = new BaseArray(students);
 
-        // Hint: to convert Object[] to String[] - use the following code
-        //Object[] result = studentSmartArray.toArray();
-        //return Arrays.copyOf(result, result.length, String[].class);
-        return null;
-    }
+        MyComparator cmp_name = new MyComparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                return ((Student) o1).getName().compareTo(
+                        ((Student)o2).getName());
+            }
+        };
 
-    public static void main(String[] args) {
-        Integer[] integers = {-1, 2, 0, 1, -5, 3};
-        SmartArray sa = new BaseArray(integers);
-        Integer[] ints = filterPositiveIntegersSortAndMultiplyBy2(integers);
-        System.out.println(Arrays.toString(ints));
+        MyPredicate pr_year = new MyPredicate() {
+            @Override
+            public boolean test(Object t) {
+                return ((Student)t).getYear() == 2;
+            }
+        };
 
-//        MyFunction func = new MyFunction() {
-//            @Override
-//            public Object apply(Object t) {
-//                return 2 * ((Integer) t);
-//            }
-//        };
-//        MyPredicate pr = new MyPredicate() {
-//            @Override
-//            public boolean test(Object t) {
-//                return ((Integer) t) > 0;
-//            }
-//        };
-//        MyComparator cmp = new MyComparator() {
-//            @Override
-//            public int compare(Object o1, Object o2) {
-//                return ((Integer) o1) - ((Integer) o2);
-//            }
-//        };
-//
-//
-//
-//
-//        sa = new SortDecorator(sa, cmp);
-////        sa = new DistinctDecorator(sa, cmp);
-//        System.out.println(Arrays.toString(sa.toArray()));
+        MyPredicate pr_gpa = new MyPredicate() {
+            @Override
+            public boolean test(Object t) {
+                return ((Student)t).getGPA() >= 4;
+            }
+        };
 
+        MyComparator cmp_surname = new MyComparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                return ((Student)o1).getSurname().compareTo(
+                        ((Student)o2).getSurname());
+            }
+        };
+
+        sd = new SortDecorator(
+                new FilterDecorator(
+                        new FilterDecorator(
+                                new DistinctDecorator(sd, cmp_name),
+                                pr_year),
+                        pr_gpa),
+                cmp_surname);
+
+        String[] result = new String[sd.size()];
+        int index = 0;
+        for (Object st : sd.toArray()) {
+            result[index++] = ((Student)st).getSurname()
+                    + " " + ((Student)st).getName();
+        }
+        return Arrays.copyOf(result, result.length);
     }
 }
