@@ -59,8 +59,8 @@ public class DistinctDecorator extends SmartArrayDecorator
     }
 
     @Override
-    public int compare(Object o1, Object o2) {
-        if (cmp.compare(o1, o2) != 0) {
+    public int compare(Object o, Object a) {
+        if (cmp.compare(o, a) != 0) {
             return 0;
         }
         return 1;

@@ -24,7 +24,7 @@ public class SortDecorator extends SmartArrayDecorator
     }
 
     @Override
-    public int compare(Object o1, Object o2) {
+    public int compare(Object o, Object a) {
         return 0;
     }
 

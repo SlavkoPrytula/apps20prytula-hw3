@@ -4,12 +4,20 @@ import java.util.Arrays;
 import ua.edu.ucu.functions.MyComparator;
 import ua.edu.ucu.functions.MyFunction;
 import ua.edu.ucu.functions.MyPredicate;
-import ua.edu.ucu.smartarr.*;
+import ua.edu.ucu.smartarr.BaseArray;
+import ua.edu.ucu.smartarr.FilterDecorator;
+import ua.edu.ucu.smartarr.SmartArray;
+import ua.edu.ucu.smartarr.SortDecorator;
+import ua.edu.ucu.smartarr.DistinctDecorator;
+import ua.edu.ucu.smartarr.MapDecorator;
 
 public class SmartArrayApp {
+    static final int NUM_MULTIPLIER = 2;
+    static final int YEAR = 2;
+    static final double GPA = 4.0;
 
-    public static Integer[]
-            filterPositiveIntegersSortAndMultiplyBy2(Integer[] integers) {
+    public static Object[]
+    filterPositiveIntegersSortAndMultiplyByTwo(Object[] integers) {
         SmartArray sa = new BaseArray(integers);
 
         MyPredicate pr = new MyPredicate() {
@@ -21,15 +29,15 @@ public class SmartArrayApp {
 
         MyComparator cmp = new MyComparator() {
             @Override
-            public int compare(Object o1, Object o2) {
-                return ((Integer) o1) - ((Integer) o2);
+            public int compare(Object o, Object a) {
+                return ((Integer) o) - ((Integer) a);
             }
         };
 
         MyFunction func = new MyFunction() {
             @Override
             public Object apply(Object t) {
-                return 2 * ((Integer) t);
+                return NUM_MULTIPLIER * ((Integer) t);
             }
         };
 
@@ -45,53 +53,53 @@ public class SmartArrayApp {
     }
 
     public static String[]
-            findDistinctStudentNamesFrom2ndYearWithGPAgt4AndOrderedBySurname(
+    findDistinctStudentNamesFromSecondYearWithGPAgtFourAndOrderedBySurname(
                     Student[] students) {
         SmartArray sd = new BaseArray(students);
 
-        MyComparator cmp_name = new MyComparator() {
+        MyComparator cmpName = new MyComparator() {
             @Override
-            public int compare(Object o1, Object o2) {
-                return ((Student) o1).getName().compareTo(
-                        ((Student)o2).getName());
+            public int compare(Object o, Object a) {
+                return ((Student) o).getName().compareTo(
+                        ((Student) a).getName());
             }
         };
 
-        MyPredicate pr_year = new MyPredicate() {
+        MyPredicate prYear = new MyPredicate() {
             @Override
             public boolean test(Object t) {
-                return ((Student)t).getYear() == 2;
+                return ((Student) t).getYear() == YEAR;
             }
         };
 
-        MyPredicate pr_gpa = new MyPredicate() {
+        MyPredicate prGpa = new MyPredicate() {
             @Override
             public boolean test(Object t) {
-                return ((Student)t).getGPA() >= 4;
+                return ((Student) t).getGPA() >= GPA;
             }
         };
 
-        MyComparator cmp_surname = new MyComparator() {
+        MyComparator cmpSurname = new MyComparator() {
             @Override
-            public int compare(Object o1, Object o2) {
-                return ((Student)o1).getSurname().compareTo(
-                        ((Student)o2).getSurname());
+            public int compare(Object o, Object a) {
+                return ((Student) o).getSurname().compareTo(
+                        ((Student) a).getSurname());
             }
         };
 
         sd = new SortDecorator(
                 new FilterDecorator(
                         new FilterDecorator(
-                                new DistinctDecorator(sd, cmp_name),
-                                pr_year),
-                        pr_gpa),
-                cmp_surname);
+                                new DistinctDecorator(sd, cmpName),
+                                prYear),
+                        prGpa),
+                cmpSurname);
 
         String[] result = new String[sd.size()];
         int index = 0;
         for (Object st : sd.toArray()) {
-            result[index++] = ((Student)st).getSurname()
-                    + " " + ((Student)st).getName();
+            result[index++] = ((Student) st).getSurname()
+                    + " " + ((Student) st).getName();
         }
         return Arrays.copyOf(result, result.length);
     }
