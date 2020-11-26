@@ -2,7 +2,6 @@ package ua.edu.ucu.smartarr;
 
 import ua.edu.ucu.functions.MyComparator;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 // Remove duplicates from SmartArray. Use method equals() to compare objects
@@ -33,7 +32,7 @@ public class DistinctDecorator extends SmartArrayDecorator implements MyComparat
 
     @Override
     public Object[] toArray() {
-        return distinctSmartArray;
+        return Arrays.copyOf(distinctSmartArray, size());
     }
 
     @Override
