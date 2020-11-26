@@ -8,15 +8,12 @@ import java.util.Arrays;
 public class SortDecorator extends SmartArrayDecorator
         implements MyComparator {
 
-    public MyComparator cmp;
-    public Object[] compareSmartArray;
+    private final Object[] compareSmartArray;
 
     public SortDecorator(SmartArray smartArray, MyComparator cmp) {
         super(smartArray);
-        this.cmp = cmp;
         this.compareSmartArray = Arrays.copyOf(smartArray.toArray(),
                 smartArray.size());
-        reduceNull();
         // for tests
         int a = compare(null, null);
         // sort by cmp parameter
@@ -41,18 +38,5 @@ public class SortDecorator extends SmartArrayDecorator
     @Override
     public int size() {
         return compareSmartArray.length;
-    }
-
-    public void reduceNull() {
-        Object[] temp = new Object[size()];
-        int index = 0;
-        for (Object obj : compareSmartArray) {
-            if (obj != null) {
-                temp[index] = obj;
-                index++;
-            }
-        }
-        compareSmartArray = Arrays.copyOf(temp, index);
-
     }
 }

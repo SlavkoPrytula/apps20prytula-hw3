@@ -8,8 +8,8 @@ import java.util.Arrays;
 public class FilterDecorator extends SmartArrayDecorator
         implements MyPredicate {
 
+    private final MyPredicate predicate;
     private Object[] filterSmartArray;
-    public MyPredicate predicate;
 
     public FilterDecorator(SmartArray smartArray, MyPredicate predicate) {
         super(smartArray);

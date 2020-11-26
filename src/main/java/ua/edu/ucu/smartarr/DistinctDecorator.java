@@ -8,8 +8,8 @@ import java.util.Arrays;
 public class DistinctDecorator extends SmartArrayDecorator
         implements MyComparator {
 
+    private final MyComparator cmp;
     private Object[] distinctSmartArray;
-    public MyComparator cmp;
 
     public DistinctDecorator(SmartArray smartArray, MyComparator cmp) {
         super(smartArray);
@@ -31,8 +31,7 @@ public class DistinctDecorator extends SmartArrayDecorator
                 index++;
             }
             for (int j = i + 1; j < size() - 2; j++) {
-                if (distinctSmartArray[j] != null
-                        && distinctSmartArray[i] != null
+                if (distinctSmartArray[i] != null
                         && compare(distinctSmartArray[i],
                         distinctSmartArray[j]) != 0) {
                     distinctSmartArray[j] = null;

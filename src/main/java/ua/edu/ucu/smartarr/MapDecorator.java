@@ -8,8 +8,8 @@ import java.util.Arrays;
 public class MapDecorator extends SmartArrayDecorator
         implements MyFunction {
 
+    private final MyFunction func;
     private final Object[] mapSmartArray;
-    public MyFunction func;
 
     public MapDecorator(SmartArray smartArray, MyFunction func) {
         super(smartArray);
